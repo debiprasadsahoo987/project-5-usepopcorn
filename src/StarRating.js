@@ -24,6 +24,7 @@ const starStyle = {
 
 export default function StarRating({ maxRating = 5 }) {
   const [rating, setRating] = useState(0);
+  const [tempRating, setTempRating] = useState(0);
 
   function handleRating(rating) {
     setRating(rating);
@@ -36,6 +37,8 @@ export default function StarRating({ maxRating = 5 }) {
           <Star
             key={i}
             onRate={() => handleRating(i + 1)}
+            onHoverIn={()=>setTempRating(i+1)}
+            onHoverOut={(=>setTempRating())}
             full={rating >= i + 1}
           />
         ))}
@@ -47,8 +50,14 @@ export default function StarRating({ maxRating = 5 }) {
 
 function Star({ onRate, full }) {
   return (
-    <span role="button" style={starStyle} onClick={onRate}>
-      {full ? (
+    <span
+      role="button"
+      style={starStyle}
+      onClick={onRate}
+      onMouseEnter={() => console.log("enter")}
+      onMouseLeave={() => console.log("leave")}
+    >
+      {full ? ( 
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
